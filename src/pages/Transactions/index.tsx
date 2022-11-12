@@ -1,7 +1,7 @@
 import Header from '@/components/Header';
 import Summary from '@/components/Summary';
 
-export default function Transaction() {
+export default function Transactions() {
   return (
     <div>
       <Header />
