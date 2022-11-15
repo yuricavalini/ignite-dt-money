@@ -23,6 +23,14 @@
       "category": "Educação",
       "price": 1980,
       "createdAt": "2022-11-14T08:36:24.962Z"
+    },
+    {
+      "description": "Desenvolvimento de app",
+      "category": "Venda",
+      "price": 10000,
+      "type": "income",
+      "createdAt": "2022-11-15T09:07:08.813Z",
+      "id": 4
     }
   ]
 }
