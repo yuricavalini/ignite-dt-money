@@ -5,6 +5,7 @@ import { Transaction } from '@/models/transaction';
 
 interface TransactionsContextType {
   transactions: Transaction[];
+  fetchTransactions: (query?: string) => Promise<void>;
 }
 
 interface TransactionsProviderProps {
@@ -16,8 +17,14 @@ export const TransactionsContext = createContext({} as TransactionsContextType);
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  async function loadTransactions() {
-    const response = await fetch('http://localhost:3333/transactions');
+  async function fetchTransactions(query?: string) {
+    const url = new URL('http://localhost:3333/transactions');
+
+    if (query) {
+      url.searchParams.append('q', query);
+    }
+
+    const response = await fetch(url);
     const data = await response.json() as Transaction[];
 
     setTransactions(data);
@@ -25,12 +32,17 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    loadTransactions();
+    fetchTransactions();
   }, []);
 
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <TransactionsContext.Provider value={{ transactions }}>
+    <TransactionsContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
+      value={{
+        transactions,
+        fetchTransactions,
+      }}
+    >
       {children}
     </TransactionsContext.Provider>
   );
