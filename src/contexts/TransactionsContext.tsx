@@ -1,5 +1,5 @@
 import {
-  ReactNode, useEffect, useState,
+  ReactNode, useCallback, useEffect, useState,
 } from 'react';
 import { createContext } from 'use-context-selector';
 
@@ -28,7 +28,7 @@ export const TransactionsContext = createContext({} as TransactionsContextType);
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  async function fetchTransactions(query?: string) {
+  const fetchTransactions = useCallback(async (query?: string) => {
     const response = await api.get<Transaction[]>('transactions', {
       params: {
         _sort: 'createdAt',
@@ -38,9 +38,9 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     });
 
     setTransactions(response.data);
-  }
+  }, []);
 
-  async function createTransaction(data: CreateTransactionInput) {
+  const createTransaction = useCallback(async (data: CreateTransactionInput) => {
     const {
       description, category, price, type,
     } = data;
@@ -54,12 +54,12 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     });
 
     setTransactions((prevState) => [response.data, ...prevState]);
-  }
+  }, []);
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     fetchTransactions();
-  }, []);
+  }, [fetchTransactions]);
 
   return (
     <TransactionsContext.Provider
