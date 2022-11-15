@@ -31,6 +31,14 @@
       "type": "income",
       "createdAt": "2022-11-15T09:07:08.813Z",
       "id": 4
+    },
+    {
+      "description": "Iogurte de banana",
+      "category": "Alimentação",
+      "price": 4,
+      "type": "outcome",
+      "createdAt": "2022-11-15T09:59:18.167Z",
+      "id": 5
     }
   ]
 }
