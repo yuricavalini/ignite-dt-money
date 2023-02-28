@@ -68,7 +68,7 @@ Also it's nice to have an editor to work with the code like [VSCode](https://cod
 ```bash
 
 # Clone this repository
-$ git clone git@github.com:yuricavalini/ignite-dt-money.git
+$ git clone https://github.com/yuricavalini/ignite-dt-money.git
 
 # Access the project folder in your terminal/cmd
 $ cd ignite-dt-money
